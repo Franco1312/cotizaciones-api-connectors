@@ -68,7 +68,7 @@ GET /api/quotes/current?casa=blue
 
 ```
 GET /api/quotes/historical?casa=blue
-GET /api/quotes/historical?casa=blue&from=2024-01-01&to=2024-01-31
+GET /api/quotes/historical?casa=blue&startDate=2024-01-01&endDate=2024-01-31
 ```
 
 ### Brechas Actuales

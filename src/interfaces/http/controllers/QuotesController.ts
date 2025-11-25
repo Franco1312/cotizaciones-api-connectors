@@ -34,32 +34,42 @@ export class QuotesController {
         return;
       }
 
-      const fromStr = req.query.from as string | undefined;
-      const toStr = req.query.to as string | undefined;
+      const startDateStr = req.query.startDate as string | undefined;
+      const endDateStr = req.query.endDate as string | undefined;
 
-      const from = fromStr ? new Date(fromStr) : undefined;
-      const to = toStr ? new Date(toStr) : undefined;
+      let startDate: Date | undefined;
+      let endDate: Date | undefined;
 
-      if (fromStr && isNaN(from!.getTime())) {
-        res.status(400).json({
-          error: "Bad request",
-          message: "Invalid date format for 'from' parameter (expected ISO format YYYY-MM-DD)",
-        });
-        return;
+      if (startDateStr) {
+        startDate = new Date(startDateStr);
+        if (isNaN(startDate.getTime())) {
+          res.status(400).json({
+            error: "Bad request",
+            message:
+              "Invalid date format for 'startDate' parameter (expected ISO format YYYY-MM-DD)",
+          });
+          return;
+        }
+        startDate.setHours(0, 0, 0, 0);
       }
 
-      if (toStr && isNaN(to!.getTime())) {
-        res.status(400).json({
-          error: "Bad request",
-          message: "Invalid date format for 'to' parameter (expected ISO format YYYY-MM-DD)",
-        });
-        return;
+      if (endDateStr) {
+        endDate = new Date(endDateStr);
+        if (isNaN(endDate.getTime())) {
+          res.status(400).json({
+            error: "Bad request",
+            message:
+              "Invalid date format for 'endDate' parameter (expected ISO format YYYY-MM-DD)",
+          });
+          return;
+        }
+        endDate.setHours(23, 59, 59, 999);
       }
 
       const quotes = await this.getHistoricalQuotesUseCase.execute(
         casa,
-        from,
-        to
+        startDate,
+        endDate
       );
       res.json(quotes);
     } catch (error) {
