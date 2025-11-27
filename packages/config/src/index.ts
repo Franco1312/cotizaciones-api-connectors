@@ -43,7 +43,7 @@ function parseCryptoPairs(envValue: string | undefined): string[] {
 
 export const config: Config = {
   binance: {
-    wsUrl: process.env.BINANCE_WS_URL || "wss://stream.binance.com:9443/ws",
+    wsUrl: process.env.BINANCE_WS_URL || "wss://stream.binance.com/ws",
     restUrl: process.env.BINANCE_REST_URL || "https://api.binance.com",
     cryptoPairs: parseCryptoPairs(process.env.CRYPTO_PAIRS),
   },
