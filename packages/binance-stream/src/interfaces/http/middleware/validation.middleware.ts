@@ -10,14 +10,14 @@ export function validate(schema: ZodSchema) {
       if (error instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: error.errors.map((err) => ({
+          details: error.errors.map((err: { path: (string | number)[]; message: string }) => ({
             path: err.path.join("."),
             message: err.message,
           })),
         });
         return;
       }
-      next(error);
+      next(error as Error);
     }
   };
 }
@@ -31,14 +31,14 @@ export function validateQuery(schema: ZodSchema) {
       if (error instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: error.errors.map((err) => ({
+          details: error.errors.map((err: { path: (string | number)[]; message: string }) => ({
             path: err.path.join("."),
             message: err.message,
           })),
         });
         return;
       }
-      next(error);
+      next(error as Error);
     }
   };
 }
@@ -52,14 +52,14 @@ export function validateParams(schema: ZodSchema) {
       if (error instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: error.errors.map((err) => ({
+          details: error.errors.map((err: { path: (string | number)[]; message: string }) => ({
             path: err.path.join("."),
             message: err.message,
           })),
         });
         return;
       }
-      next(error);
+      next(error as Error);
     }
   };
 }
