@@ -28,7 +28,11 @@ export class StartStreamUseCase {
     });
 
     this.webSocketClient.onError((error: Error) => {
-      console.error("❌ Stream error:", error);
+      logger.error({
+        event: LOG_EVENTS.BINANCE_STREAM_ERROR,
+        msg: "Stream error",
+        err: error,
+      });
     });
 
     this.webSocketClient.onClose(() => {

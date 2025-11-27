@@ -6,18 +6,18 @@ export function validate(schema: ZodSchema) {
     try {
       schema.parse(req.body);
       next();
-    } catch (error: unknown) {
-      if (error instanceof ZodError) {
+    } catch (err: unknown) {
+      if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: error.errors.map((err: { path: (string | number)[]; message: string }) => ({
-            path: err.path.join("."),
-            message: err.message,
+          details: err.errors.map((e: { path: (string | number)[]; message: string }) => ({
+            path: e.path.join("."),
+            message: e.message,
           })),
         });
         return;
       }
-      next(error as Error);
+      next(err as Error);
     }
   };
 }
@@ -27,18 +27,18 @@ export function validateQuery(schema: ZodSchema) {
     try {
       schema.parse(req.query);
       next();
-    } catch (error: unknown) {
-      if (error instanceof ZodError) {
+    } catch (err: unknown) {
+      if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: error.errors.map((err: { path: (string | number)[]; message: string }) => ({
-            path: err.path.join("."),
-            message: err.message,
+          details: err.errors.map((e: { path: (string | number)[]; message: string }) => ({
+            path: e.path.join("."),
+            message: e.message,
           })),
         });
         return;
       }
-      next(error as Error);
+      next(err as Error);
     }
   };
 }
@@ -48,18 +48,18 @@ export function validateParams(schema: ZodSchema) {
     try {
       schema.parse(req.params);
       next();
-    } catch (error: unknown) {
-      if (error instanceof ZodError) {
+    } catch (err: unknown) {
+      if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: error.errors.map((err: { path: (string | number)[]; message: string }) => ({
-            path: err.path.join("."),
-            message: err.message,
+          details: err.errors.map((e: { path: (string | number)[]; message: string }) => ({
+            path: e.path.join("."),
+            message: e.message,
           })),
         });
         return;
       }
-      next(error as Error);
+      next(err as Error);
     }
   };
 }
