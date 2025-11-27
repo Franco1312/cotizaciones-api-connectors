@@ -28,7 +28,9 @@
     "paths": {
       "@cotizaciones/config": ["packages/config/dist"],
       "@cotizaciones/binance-stream": ["packages/binance-stream/dist"],
-      "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist"]
+      "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist"],
+      "@domain/*": ["src/domain/*"],
+      "@infrastructure/*": ["src/infrastructure/*"]
     }
   },
   "include": ["src/**/*"],
