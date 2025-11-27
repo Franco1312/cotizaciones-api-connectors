@@ -26,9 +26,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@cotizaciones/config": ["packages/config/dist"],
-      "@cotizaciones/binance-stream": ["packages/binance-stream/dist"],
-      "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist"],
+      "@cotizaciones/config": ["packages/config/dist/index"],
+      "@cotizaciones/binance-stream": ["packages/binance-stream/dist/index"],
+      "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist/index"],
       "@domain/*": ["src/domain/*"],
       "@infrastructure/*": ["src/infrastructure/*"]
     }

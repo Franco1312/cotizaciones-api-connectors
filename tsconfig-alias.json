@@ -1,9 +1,9 @@
 {
   "resolveFullPaths": true,
   "replacers": {
-    "@cotizaciones/config": ["packages/config/dist"],
-    "@cotizaciones/binance-stream": ["packages/binance-stream/dist"],
-    "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist"]
+    "@cotizaciones/config": "packages/config/dist",
+    "@cotizaciones/binance-stream": "packages/binance-stream/dist",
+    "@cotizaciones/cotizaciones-api": "packages/cotizaciones-api/dist"
   }
 }
 

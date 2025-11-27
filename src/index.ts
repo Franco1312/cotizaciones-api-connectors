@@ -1,9 +1,9 @@
 import express, { Express } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import { bootstrapCotizacionesRoutes } from "@cotizaciones/cotizaciones-api";
-import { startPriceStream, bootstrapCryptoRoutes } from "@cotizaciones/binance-stream";
-import { config } from "@cotizaciones/config";
+import { bootstrapCotizacionesRoutes } from "../packages/cotizaciones-api/dist";
+import { startPriceStream, bootstrapCryptoRoutes } from "../packages/binance-stream/dist";
+import { config } from "../packages/config/dist";
 import { swaggerSpec } from "./config/swagger.config";
 import { logger, LOG_EVENTS } from "./infrastructure/logger";
 
