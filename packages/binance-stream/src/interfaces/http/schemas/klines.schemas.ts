@@ -1,3 +1,4 @@
+// @ts-ignore - zod is installed in root node_modules
 import { z } from "zod";
 
 export const IntervalSchema = z.enum([

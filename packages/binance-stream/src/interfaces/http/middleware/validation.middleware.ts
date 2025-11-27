@@ -10,7 +10,7 @@ export function validate(schema: ZodSchema) {
       if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: err.errors.map((e: { path: (string | number)[]; message: string }) => ({
+          details: err.errors.map((e) => ({
             path: e.path.join("."),
             message: e.message,
           })),
@@ -31,7 +31,7 @@ export function validateQuery(schema: ZodSchema) {
       if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: err.errors.map((e: { path: (string | number)[]; message: string }) => ({
+          details: err.errors.map((e) => ({
             path: e.path.join("."),
             message: e.message,
           })),
@@ -52,7 +52,7 @@ export function validateParams(schema: ZodSchema) {
       if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: err.errors.map((e: { path: (string | number)[]; message: string }) => ({
+          details: err.errors.map((e) => ({
             path: e.path.join("."),
             message: e.message,
           })),
@@ -63,4 +63,3 @@ export function validateParams(schema: ZodSchema) {
     }
   };
 }
-
