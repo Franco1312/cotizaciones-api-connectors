@@ -6,7 +6,7 @@ export function validate(schema: ZodSchema) {
     try {
       schema.parse(req.body);
       next();
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
@@ -27,7 +27,7 @@ export function validateQuery(schema: ZodSchema) {
     try {
       schema.parse(req.query);
       next();
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
@@ -48,7 +48,7 @@ export function validateParams(schema: ZodSchema) {
     try {
       schema.parse(req.params);
       next();
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",

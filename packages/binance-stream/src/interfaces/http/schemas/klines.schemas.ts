@@ -24,17 +24,17 @@ export const KlinesQuerySchema = z.object({
   limit: z
     .string()
     .optional()
-    .transform((val) => (val ? parseInt(val, 10) : undefined))
+    .transform((val: string | undefined) => (val ? parseInt(val, 10) : undefined))
     .pipe(z.number().int().min(1).max(1000).optional()),
   startTime: z
     .string()
     .optional()
-    .transform((val) => (val ? parseInt(val, 10) : undefined))
+    .transform((val: string | undefined) => (val ? parseInt(val, 10) : undefined))
     .pipe(z.number().int().positive().optional()),
   endTime: z
     .string()
     .optional()
-    .transform((val) => (val ? parseInt(val, 10) : undefined))
+    .transform((val: string | undefined) => (val ? parseInt(val, 10) : undefined))
     .pipe(z.number().int().positive().optional()),
 });
 
