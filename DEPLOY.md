@@ -7,12 +7,19 @@
 npm install && npm run build
 ```
 
-**Nota**: El build compila todos los packages primero y luego el servidor principal. Los imports apuntan a `dist/` para evitar problemas de tipos.
+**Nota**: 
+- El build compila todos los packages primero (`npm run build --workspaces`) y luego el servidor principal (`tsc`)
+- `tsc-alias` resuelve los paths absolutos internos de cada package
+- `tsconfig-paths` está en `dependencies` para que esté disponible en producción
 
 ### Start Command
 ```bash
 npm start
 ```
+
+**Nota**: El comando `npm start` ejecuta `node -r tsconfig-paths/register dist/index.js`. 
+- `tsconfig-paths/register` es necesario porque los imports entre packages (`@cotizaciones/*`) se resuelven en runtime
+- `tsconfig-paths` está en `dependencies` para que esté disponible en producción
 
 ### Variables de Entorno
 
