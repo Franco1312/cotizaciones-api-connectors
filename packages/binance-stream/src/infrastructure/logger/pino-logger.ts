@@ -1,4 +1,3 @@
-// @ts-ignore - pino is installed in root node_modules
 import pino from "pino";
 import { Logger } from "@domain/interfaces/logger.interface";
 

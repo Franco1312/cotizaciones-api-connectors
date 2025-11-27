@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ZodSchema, ZodError } from "zod";
+import { ZodSchema, ZodError, ZodIssue } from "zod";
 
 export function validate(schema: ZodSchema) {
   return (req: Request, res: Response, next: NextFunction): void => {
@@ -10,7 +10,7 @@ export function validate(schema: ZodSchema) {
       if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: err.errors.map((e) => ({
+          details: err.errors.map((e: ZodIssue) => ({
             path: e.path.join("."),
             message: e.message,
           })),
@@ -31,7 +31,7 @@ export function validateQuery(schema: ZodSchema) {
       if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: err.errors.map((e) => ({
+          details: err.errors.map((e: ZodIssue) => ({
             path: e.path.join("."),
             message: e.message,
           })),
@@ -52,7 +52,7 @@ export function validateParams(schema: ZodSchema) {
       if (err instanceof ZodError) {
         res.status(400).json({
           error: "Validation error",
-          details: err.errors.map((e) => ({
+          details: err.errors.map((e: ZodIssue) => ({
             path: e.path.join("."),
             message: e.message,
           })),

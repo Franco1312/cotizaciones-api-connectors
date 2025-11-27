@@ -8,7 +8,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
@@ -32,12 +31,7 @@
       "@application/*": ["application/*"],
       "@infrastructure/*": ["infrastructure/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@cotizaciones/config": ["../../config/dist"],
-      "pino": ["../../node_modules/pino"],
-      "pino-pretty": ["../../node_modules/pino-pretty"],
-      "ws": ["../../node_modules/ws"],
-      "zod": ["../../node_modules/zod"],
-      "express": ["../../node_modules/express"]
+      "@cotizaciones/config": ["../../config/dist"]
     }
   },
   "include": ["src/**/*"],
