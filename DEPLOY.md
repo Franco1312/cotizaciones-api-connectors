@@ -8,9 +8,10 @@ npm install && npm run build
 ```
 
 **Nota**: 
-- El build compila todos los packages primero (`npm run build --workspaces`) y luego el servidor principal (`tsc`)
+- El build compila los packages en orden: primero `config` y `logger`, luego `binance-stream` y `cotizaciones-api`, y finalmente el servidor principal
 - `tsc-alias` resuelve los paths absolutos internos de cada package
 - `tsconfig-paths` está en `dependencies` para que esté disponible en producción
+- Las dependencias se instalan en el root del monorepo y se comparten entre packages (workspaces)
 
 ### Start Command
 ```bash
