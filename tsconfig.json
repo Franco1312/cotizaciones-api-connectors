@@ -28,7 +28,6 @@
     "paths": {
       "@cotizaciones/config": ["packages/config/dist"],
       "@cotizaciones/binance-stream": ["packages/binance-stream/dist"],
-      "@cotizaciones/logger": ["packages/logger/dist"],
       "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist"]
     }
   },

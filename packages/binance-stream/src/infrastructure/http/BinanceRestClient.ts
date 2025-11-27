@@ -1,7 +1,7 @@
 import { BinanceConfig } from "@infrastructure/config/BinanceConfig";
 import { Kline } from "@domain/models/Kline";
 import { Interval } from "@domain/models/Kline";
-import { logger, LOG_EVENTS } from "@cotizaciones/logger";
+import { logger, LOG_EVENTS } from "@infrastructure/logger";
 
 export interface FetchKlinesParams {
   symbol: string;

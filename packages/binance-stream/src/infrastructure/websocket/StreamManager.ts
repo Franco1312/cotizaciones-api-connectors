@@ -2,7 +2,7 @@ import { IWebSocketClient } from "./BinanceWebSocketClient";
 import { IPriceRepository } from "@domain/repositories/IPriceRepository";
 import { StartStreamUseCase } from "@application/usecases/StartStreamUseCase";
 import { GetLatestPricesUseCase } from "@application/usecases/GetLatestPricesUseCase";
-import { logger, LOG_EVENTS } from "@cotizaciones/logger";
+import { logger, LOG_EVENTS } from "@infrastructure/logger";
 
 export class StreamManager {
   private startStreamUseCase: StartStreamUseCase;

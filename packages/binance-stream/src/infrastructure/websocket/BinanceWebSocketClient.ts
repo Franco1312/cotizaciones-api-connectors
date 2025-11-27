@@ -3,7 +3,7 @@ import { MiniTicker } from "@domain/models/MiniTicker";
 import { BinanceMiniTickerMessage } from "./BinanceWebSocketMessage";
 import { BinanceConfig } from "@infrastructure/config/BinanceConfig";
 import { parseMiniTickerMessage } from "./MessageParser";
-import { logger, LOG_EVENTS } from "@cotizaciones/logger";
+import { logger, LOG_EVENTS } from "@infrastructure/logger";
 
 export interface IWebSocketClient {
   connect(): void;

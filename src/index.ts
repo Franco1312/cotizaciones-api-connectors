@@ -5,7 +5,7 @@ import { bootstrapCotizacionesRoutes } from "@cotizaciones/cotizaciones-api";
 import { startPriceStream, bootstrapCryptoRoutes } from "@cotizaciones/binance-stream";
 import { config } from "@cotizaciones/config";
 import { swaggerSpec } from "./config/swagger.config";
-import { logger, LOG_EVENTS } from "@cotizaciones/logger";
+import { logger, LOG_EVENTS } from "./infrastructure/logger";
 
 const PORT = config.http.port;
 

@@ -1,7 +1,7 @@
 import { IWebSocketClient } from "@infrastructure/websocket/BinanceWebSocketClient";
 import { IPriceRepository } from "@domain/repositories/IPriceRepository";
 import { MiniTicker } from "@domain/models/MiniTicker";
-import { logger, LOG_EVENTS } from "@cotizaciones/logger";
+import { logger, LOG_EVENTS } from "@infrastructure/logger";
 
 export class StartStreamUseCase {
   constructor(

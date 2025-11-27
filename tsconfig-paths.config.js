@@ -7,7 +7,6 @@ register({
   paths: {
     "@cotizaciones/config": ["packages/config/src"],
     "@cotizaciones/binance-stream": ["packages/binance-stream/src"],
-    "@cotizaciones/logger": ["packages/logger/src"],
     "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/src"],
   },
 });
@@ -34,11 +33,3 @@ register({
   },
 });
 
-// Register paths for logger package internal imports
-register({
-  baseUrl: path.resolve(__dirname, "./packages/logger/src"),
-  paths: {
-    "@domain/*": ["domain/*"],
-    "@infrastructure/*": ["infrastructure/*"],
-  },
-});

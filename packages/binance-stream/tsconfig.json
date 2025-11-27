@@ -32,8 +32,7 @@
       "@application/*": ["application/*"],
       "@infrastructure/*": ["infrastructure/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@cotizaciones/config": ["../../config/dist"],
-      "@cotizaciones/logger": ["../../logger/dist"]
+      "@cotizaciones/config": ["../../config/dist"]
     }
   },
   "include": ["src/**/*"],

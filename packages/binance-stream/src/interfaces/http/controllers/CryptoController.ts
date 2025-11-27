@@ -6,7 +6,7 @@ import {
 } from "../../../bootstrap";
 import { CryptoPricesResponseSchema } from "@interfaces/http/schemas/crypto.schemas";
 import { KlinesQuerySchema } from "@interfaces/http/schemas/klines.schemas";
-import { logger, LOG_EVENTS } from "@cotizaciones/logger";
+import { logger, LOG_EVENTS } from "@infrastructure/logger";
 
 export class CryptoController {
   async getPrices(_req: Request, res: Response): Promise<void> {
