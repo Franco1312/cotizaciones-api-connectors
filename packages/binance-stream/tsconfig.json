@@ -9,8 +9,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
