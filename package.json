@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build:packages && npm run build:root",
+    "build": "npm install && npm run build:packages && npm run build:root",
     "build:packages": "npm run build --workspace=@cotizaciones/config && npm run build --workspace=@cotizaciones/binance-stream && npm run build --workspace=cotizaciones-api",
     "build:root": "tsc --skipLibCheck && tsc-alias",
     "dev": "ts-node-dev --respawn --transpile-only -r ./tsconfig-paths.config.js src/index.ts",
