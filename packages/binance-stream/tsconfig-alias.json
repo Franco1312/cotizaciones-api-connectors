@@ -1,0 +1,10 @@
+{
+  "resolveFullPaths": true,
+  "replacers": {
+    "@domain/*": ["dist/domain/*"],
+    "@application/*": ["dist/application/*"],
+    "@infrastructure/*": ["dist/infrastructure/*"],
+    "@interfaces/*": ["dist/interfaces/*"]
+  }
+}
+

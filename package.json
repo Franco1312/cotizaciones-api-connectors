@@ -1,28 +1,47 @@
 {
-  "name": "cotizaciones-api-connectors",
+  "name": "cotizaciones-api-connectors-monorepo",
   "version": "1.0.0",
-  "description": "Backend API para cotizaciones del dólar en Argentina",
-  "main": "dist/index.js",
+  "description": "Monorepo para servicios de cotizaciones y APIs relacionadas",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "npm install && tsc",
-    "start": "node dist/index.js",
-    "type-check": "tsc --noEmit"
+    "build": "npm run build --workspaces && tsc --skipLibCheck && tsc-alias",
+    "dev": "ts-node-dev --respawn --transpile-only -r ./tsconfig-paths.config.js src/index.ts",
+    "dev:crypto-api": "ts-node-dev --respawn --transpile-only -r ./tsconfig-paths.config.js src/index.ts",
+    "start": "node -r tsconfig-paths/register dist/index.js",
+    "clean": "rm -rf node_modules packages/*/node_modules packages/*/dist dist",
+    "test": "npm run test --workspaces"
   },
-  "keywords": ["dolar", "cotizaciones", "argentina", "api"],
+  "keywords": [
+    "monorepo",
+    "cotizaciones",
+    "api"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "@types/node": "^20.10.5",
-    "@types/express": "^4.17.21",
-    "@types/cors": "^2.8.17",
-    "typescript": "^5.3.3"
+    "express": "^4.18.2",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "ws": "^8.16.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "ts-node-dev": "^2.0.0"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.5",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
+    "@types/ws": "^8.5.10",
+    "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.16",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
   }
 }
-

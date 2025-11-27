@@ -24,15 +24,17 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@cotizaciones/config": ["packages/config/dist"],
-      "@cotizaciones/binance-stream": ["packages/binance-stream/dist"],
-      "@cotizaciones/logger": ["packages/logger/dist"],
-      "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist"]
+      "@domain/*": ["domain/*"],
+      "@application/*": ["application/*"],
+      "@infrastructure/*": ["infrastructure/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@cotizaciones/config": ["../../config/dist"],
+      "@cotizaciones/logger": ["../../logger/dist"]
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "packages"]
+  "exclude": ["node_modules", "dist", "../../node_modules"]
 }
 

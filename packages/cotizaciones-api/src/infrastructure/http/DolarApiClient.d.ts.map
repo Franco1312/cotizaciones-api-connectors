@@ -1,0 +1,1 @@
+{"version":3,"file":"DolarApiClient.d.ts","sourceRoot":"","sources":["DolarApiClient.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAqB,MAAM,iCAAiC,CAAC;AAYjF,qBAAa,cAAc;IACzB,OAAO,CAAC,QAAQ,CAAC,OAAO,CAAS;gBAErB,OAAO,CAAC,EAAE,MAAM;IAItB,gBAAgB,IAAI,OAAO,CAAC,WAAW,EAAE,CAAC;IAmBhD,OAAO,CAAC,gBAAgB;CAWzB"}

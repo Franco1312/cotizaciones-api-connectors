@@ -1,13 +1,19 @@
-# Cotizaciones API Connectors
+# Cotizaciones API Connectors - Monorepo
 
-Backend API para cotizaciones del dólar en Argentina. Obtiene datos en tiempo real desde APIs públicas y calcula brechas entre distintos tipos de dólar.
+Monorepo para servicios de cotizaciones y APIs relacionadas.
 
-## Stack Tecnológico
+## Estructura del Proyecto
 
-- Node.js 20+
-- TypeScript
-- Express
-- Clean Architecture (simplificada)
+```
+.
+├── packages/
+│   ├── cotizaciones-api/    # API de cotizaciones del dólar
+│   ├── config/               # Configuración común del monorepo
+│   └── binance-stream/       # WebSocket stream de Binance para precios de crypto
+├── src/                      # Servidor HTTP principal
+├── package.json              # Configuración root con workspaces
+└── tsconfig.json            # Configuración base de TypeScript
+```
 
 ## Instalación
 
@@ -15,111 +21,102 @@ Backend API para cotizaciones del dólar en Argentina. Obtiene datos en tiempo r
 npm install
 ```
 
-## Desarrollo
+Esto instalará todas las dependencias de todos los packages del monorepo.
+
+## Scripts Disponibles
+
+### Servidor Compartido (Root)
+
+El servidor se levanta desde la raíz y registra las rutas de todos los packages:
 
 ```bash
+# Desarrollo (con hot reload)
 npm run dev
-```
+# O específicamente para crypto API:
+npm run dev:crypto-api
 
-El servidor se ejecutará en `http://localhost:3000` (o el puerto configurado en `PORT`).
-
-## Build
-
-```bash
+# Build (compila todos los packages + servidor root)
 npm run build
+
+# Producción
+npm start
+
+# Tests
+npm test
 ```
 
-Esto genera los archivos JavaScript en la carpeta `dist/`.
-
-## Producción
+### Scripts Individuales
 
 ```bash
-npm start
+# Limpiar node_modules y dist de todos los packages
+npm run clean
 ```
 
-Asegúrate de haber ejecutado `npm run build` primero.
+## Agregar un Nuevo Package
 
-## Variables de Entorno
+1. Crear carpeta en `packages/nuevo-servicio/`
+2. Crear `package.json` con el nombre del servicio
+3. Ejecutar `npm install` desde la raíz para que se detecte el workspace
+4. Agregar scripts en el `package.json` root si es necesario
 
-Crea un archivo `.env` en la raíz del proyecto (puedes copiar `.env.example`):
+Ejemplo de estructura para un nuevo package:
+
+```
+packages/nuevo-servicio/
+├── src/
+├── package.json
+└── tsconfig.json
+```
+
+## API Endpoints
+
+### Cotizaciones del Dólar
+- Endpoints del package `cotizaciones-api` (ver documentación del package)
+
+### Precios de Criptomonedas
+- `GET /api/crypto/prices` - Devuelve los últimos precios de todas las criptomonedas suscritas
+
+Ejemplo de respuesta:
+```json
+{
+  "BTCUSDT": {
+    "symbol": "BTCUSDT",
+    "lastPrice": "42000.00",
+    "openPrice": "41000.00",
+    "highPrice": "43000.00",
+    "lowPrice": "40000.00",
+    "volume": "12345.67",
+    "quoteVolume": "123456789.00",
+    "eventTime": 1672515782136
+  },
+  "ETHUSDT": { ... }
+}
+```
+
+## Configuración
+
+Variables de entorno (crear archivo `.env` en la raíz):
 
 ```env
-PORT=3000
-DOLAR_API_BASE_URL=https://dolarapi.com
-ARGENTINA_DATOS_BASE_URL=https://api.argentinadatos.com
+# HTTP Server Port
+HTTP_PORT=3000
+
+# Binance WebSocket URL (opcional, default: wss://stream.binance.com:9443/ws)
+BINANCE_WS_URL=wss://stream.binance.com:9443/ws
+
+# Crypto pairs a suscribir (separados por coma, minúsculas)
+# Default: 20 pares más populares
+CRYPTO_PAIRS=btcusdt,ethusdt,bnbusdt,solusdt,adausdt,xrpusdt,dogeusdt,dotusdt,maticusdt,avaxusdt,linkusdt,ltcusdt,uniusdt,atomusdt,etcusdt,xlmusdt,nearusdt,algousdt,vetusdt,icpusdt
 ```
 
-## Endpoints
+## Workspaces
 
-### Health Check
+Este monorepo usa [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) para gestionar múltiples packages en un solo repositorio.
 
-```
-GET /api/health
-```
+Los packages se definen en `packages/*` y se gestionan automáticamente por npm.
 
-### Cotizaciones Actuales
+### Packages
 
-```
-GET /api/quotes/current
-GET /api/quotes/current?casa=blue
-```
-
-### Cotizaciones Históricas
-
-```
-GET /api/quotes/historical?casa=blue
-GET /api/quotes/historical?casa=blue&startDate=2024-01-01&endDate=2024-01-31
-```
-
-### Brechas Actuales
-
-```
-GET /api/brechas/current?baseCasa=oficial&against=blue,bolsa,contadoconliqui
-```
-
-### Brechas Históricas
-
-```
-GET /api/brechas/historical?baseCasa=oficial&againstCasa=blue
-GET /api/brechas/historical?baseCasa=oficial&againstCasa=blue&from=2024-01-01&to=2024-01-31
-```
-
-## Tipos de Dólar Soportados
-
-- `oficial`
-- `blue`
-- `bolsa` (MEP)
-- `contadoconliqui` (CCL)
-- `cripto`
-- `mayorista`
-- `solidario`
-- `turista`
-
-## Docker
-
-### Build
-
-```bash
-docker build -t cotizaciones-api .
-```
-
-### Run
-
-```bash
-docker run -p 3000:3000 cotizaciones-api
-```
-
-## Estructura del Proyecto
-
-```
-src/
-├── domain/
-│   └── models/          # Modelos de dominio
-├── application/
-│   └── usecases/        # Casos de uso
-├── infrastructure/
-│   ├── http/            # Clients HTTP para APIs externas
-│   └── config/          # Configuración
-└── interfaces/
-    └── http/            # Controllers, routes, server Express
-```
+- **config**: Configuración común (variables de entorno, defaults)
+- **binance-stream**: Cliente WebSocket para Binance con cache en memoria
+- **cotizaciones-api**: API de cotizaciones del dólar en Argentina

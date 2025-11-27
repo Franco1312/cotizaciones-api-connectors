@@ -4,6 +4,7 @@
     "module": "commonjs",
     "lib": ["ES2022"],
     "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -24,15 +25,13 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@cotizaciones/config": ["packages/config/dist"],
-      "@cotizaciones/binance-stream": ["packages/binance-stream/dist"],
-      "@cotizaciones/logger": ["packages/logger/dist"],
-      "@cotizaciones/cotizaciones-api": ["packages/cotizaciones-api/dist"]
+      "@domain/*": ["domain/*"],
+      "@infrastructure/*": ["infrastructure/*"]
     }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "packages"]
+  "exclude": ["node_modules", "dist", "../../node_modules"]
 }
 

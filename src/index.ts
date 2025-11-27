@@ -1,47 +1,59 @@
-import { config } from "./infrastructure/config/env";
-import { DolarApiClient } from "./infrastructure/http/DolarApiClient";
-import { ArgentinaDatosClient } from "./infrastructure/http/ArgentinaDatosClient";
-import { GetCurrentQuotesUseCase } from "./application/usecases/GetCurrentQuotesUseCase";
-import { GetHistoricalQuotesUseCase } from "./application/usecases/GetHistoricalQuotesUseCase";
-import { GetCurrentBrechasUseCase } from "./application/usecases/GetCurrentBrechasUseCase";
-import { GetHistoricalBrechasUseCase } from "./application/usecases/GetHistoricalBrechasUseCase";
-import { QuotesController } from "./interfaces/http/controllers/QuotesController";
-import { BrechasController } from "./interfaces/http/controllers/BrechasController";
-import { createApp } from "./interfaces/http/server";
+import express, { Express } from "express";
+import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import { bootstrapCotizacionesRoutes } from "@cotizaciones/cotizaciones-api";
+import { startPriceStream, bootstrapCryptoRoutes } from "@cotizaciones/binance-stream";
+import { config } from "@cotizaciones/config";
+import { swaggerSpec } from "./config/swagger.config";
+import { logger, LOG_EVENTS } from "@cotizaciones/logger";
 
-function bootstrap(): void {
-  const dolarApiClient = new DolarApiClient();
-  const argentinaDatosClient = new ArgentinaDatosClient();
+const PORT = config.http.port;
 
-  const getCurrentQuotesUseCase = new GetCurrentQuotesUseCase(dolarApiClient);
-  const getHistoricalQuotesUseCase = new GetHistoricalQuotesUseCase(
-    argentinaDatosClient
-  );
-  const getCurrentBrechasUseCase = new GetCurrentBrechasUseCase(
-    getCurrentQuotesUseCase
-  );
-  const getHistoricalBrechasUseCase = new GetHistoricalBrechasUseCase(
-    argentinaDatosClient
-  );
+function createServer(): Express {
+  const app = express();
 
-  const quotesController = new QuotesController(
-    getCurrentQuotesUseCase,
-    getHistoricalQuotesUseCase
-  );
-  const brechasController = new BrechasController(
-    getCurrentBrechasUseCase,
-    getHistoricalBrechasUseCase
-  );
+  // Middleware global
+  app.use(cors());
+  app.use(express.json());
 
-  const app = createApp(quotesController, brechasController);
+  // Swagger documentation
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-  const port = config.port;
+  // Registrar rutas de cada package
+  // Cotizaciones API
+  const cotizacionesRoutes = bootstrapCotizacionesRoutes();
+  app.use("/api", cotizacionesRoutes);
 
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    console.log(`Health check: http://localhost:${port}/api/health`);
+  // Crypto prices API
+  const cryptoRoutes = bootstrapCryptoRoutes();
+  app.use("/api", cryptoRoutes);
+
+  return app;
+}
+
+function startServer(): void {
+  // Iniciar Binance WebSocket stream
+  startPriceStream();
+
+  const app = createServer();
+
+  app.listen(PORT, "0.0.0.0", () => {
+    logger.info({
+      event: LOG_EVENTS.SERVER_STARTED,
+      msg: "Server started successfully",
+      data: {
+        port: PORT,
+        host: "0.0.0.0",
+        endpoints: {
+          health: `/api/health`,
+          cryptoPrices: `/api/crypto/prices`,
+          apiDocs: `/api-docs`,
+        },
+        packages: ["cotizaciones-api", "binance-stream"],
+      },
+    });
   });
 }
 
-bootstrap();
+startServer();
 
